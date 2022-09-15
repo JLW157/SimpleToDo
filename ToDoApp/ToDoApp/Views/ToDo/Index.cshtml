@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ToDoItem>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="text-center mx-2">Task list</h2>
+<a class="btn btn-primary mx-2 my-4" asp-action="TaskForm">Add New Task</a>
+<div class="row">
+    @foreach(var item in Model) 
+    {
+        <div class="col-4">
+            <div class="card text-center">
+                <div class="card-header">
+                    @{
+                        if (@item.Status == "Done")
+                        {
+                            <div class="badge bg-success text-wrap">@item.Status</div>
+                        }
+                        else if(@item.Status == "Not Started")
+                        {
+                            <div class="badge bg-secondary text-wrap">@item.Status</div>
+                        }
+                        else
+                        {
+                            <div class="badge bg-warning text-wrap">@item.Status</div>
+                        }
+                    }
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@item.Description</p>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Complete" asp-route-id="@item.Id" class="btn btn-success">Complete</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </div>
+                <div class="card-footer text-muted">
+                    Task Created At: @item.CreatedAt
+                </div>
+            </div>
+        </div>
+    }
+</div>

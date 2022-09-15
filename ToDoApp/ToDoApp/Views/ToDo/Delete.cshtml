@@ -1,0 +1,40 @@
+﻿@model ToDoItem
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2 class="text-center mx-2">Are you sure you want delete this task?</h2>
+<br />
+<div class="col-12">
+    <div class="card text-center">
+        <div class="card-header">
+            @{
+                if (@Model.Status == "Done")
+                {
+                    <div class="badge bg-success text-wrap">@Model.Status</div>
+                }
+                else if (@Model.Status == "Not Started")
+                {
+                    <div class="badge bg-secondary text-wrap">@Model.Status</div>
+                }
+                else
+                {
+                    <div class="badge bg-warning text-wrap">@Model.Status</div>
+                }
+            }
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">@Model.Description</p>
+        </div>
+        <div class="card-footer text-muted">
+            Task Created At: @Model.CreatedAt
+        </div>
+    </div>
+</div>
+<form method="post">
+    <div class="mt-3">
+        <button class="btn btn-danger" asp-route-id="@Model.Id">Delete</button>
+        <a asp-action="Index" asp-controller="ToDo" class="btn btn-secondary">Back to Tasks</a>
+    </div>
+</form>

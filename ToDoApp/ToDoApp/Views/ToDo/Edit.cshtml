@@ -1,0 +1,67 @@
+﻿@model ToDoItem
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2 class="text-center mx-2">Edit</h2>
+<div class="col-12">
+    <div class="card text-center">
+        <div class="card-header">
+            Edit Task
+        </div>
+        <div class="card-body">
+            @{
+                var oldDescription  = Model.Description;
+                var oldStatus = Model.Status;
+                var oldTitle = Model.Title;
+                var id = Model.Id;
+                var CreatedDate = Model.CreatedAt;
+            }
+            <form method="post">
+                <div class="mb-2">
+                    <label style="font-weight: bold" asp-for="Title"></label>
+                    <input type="text" asp-for="Title" value="@Model.Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-2">
+                    <label style="font-weight: bold" asp-for="Description"></label>
+                    <textarea style="resize:none" asp-for="Description" class="form-control" rows="3">@Model.Description</textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Status" style="font-weight: bold"></label>
+                    <select class="form-select" asp-for="Status">
+                        @{
+                            if (@Model.Status == "Not Started")
+                            {
+                                <option selected>@Model.Status</option>
+                                <option value="Done">Done</option>
+                                <option value="In process">In process</option>
+                            }
+                            if (Model.Status == "Done")
+                            {
+                                <option selected>@Model.Status</option>
+                                <option value="In process">In process</option>
+                                <option value="Not Started">Not Started</option>
+                            }
+                            if (Model.Status == "In process")
+                            {
+                                <option selected>@Model.Status</option>
+                                <option value="Done">Done</option>
+                                <option value="Not Started">Not Started</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary" 
+                asp-route-oldTitle="@oldTitle"
+                asp-route-oldStatus="@oldStatus"
+                asp-route-oldDescription="@oldDescription"
+                asp-route-id="@id"
+                asp-route-createdAt="@CreatedDate">Save</button>
+                <a asp-action="Index" asp-controller="ToDo" class="btn btn-secondary">Back to Tasks</a>
+            </form>
+        </div>
+    </div>
+</div>

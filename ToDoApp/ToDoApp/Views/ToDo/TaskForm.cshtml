@@ -1,0 +1,45 @@
+﻿@model ToDoItem
+
+@{
+    ViewData["Title"] = "TaskForm";
+}
+<h2>Create a New Task</h2>
+
+<br />
+
+<li>Tip: Fill all fields to create a new task</li>
+<br />
+
+<div class="card">
+    <div class="card-header">
+        New Task Form
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div class="mb-2">
+                <label style="font-weight: bold" asp-for="Title"></label>
+                <input type="text" asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-2">
+                <label style="font-weight: bold" asp-for="Description"></label>
+                <textarea style="resize:none" asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-2">
+                <label style="font-weight: bold" asp-for="Status"></label>
+                <select class="form-select" asp-for="Status" >
+                    <option selected>Open this select menu</option>
+                    <option style="background-color:yellow; color:black;" value="In process">In process</option>
+                    <option style="color:darkgrey; color:black"  value="Not Started">Not Started</option>
+                    <option style="background-color:green; color:white" value="Done">Done</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-action="Index" asp-controller="ToDo" class="btn btn-secondary">Back to Tasks</a>
+        </form>
+    </div>
+</div>
